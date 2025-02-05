@@ -1,11 +1,56 @@
-# Basic Load Balancer
-This project is an implementation of a load balancer serving to multiple webservers. 
+# Load Balancer Simulation System
 
-## What do we need?
-**Requests**: The request is going to contain an ingoing address (IP in) and an outgoing address (IP out) 
-and a timestamp, in this implementation we just used ints for time measurement. 
-In this basic implementation, these reuqests are going to be basic fields/structs of data.
+A C++ implementation of a load balancer that distributes network requests across multiple web servers.
 
-**Web Server**: The web server will take a request from the load balancer, process the request and ask for another request from the load balancer.
+## System Components
 
-**Load Balancer**: This will essentially be a simple queue of requests and it will keep track of time. This is so it can track how long each requests takes to process.
+- **Load Balancer**: Manages incoming request queue and distributes requests to web servers
+- **Web Servers**: Process requests with simulated processing times
+- **Request Generator**: Creates random IPv4 requests with source/destination addresses
+
+## Technical Details
+
+The system uses several key C++ components:
+- Round-robin load distribution algorithm
+- Random request generation with IPv4 address simulation
+- Time-based request processing simulation
+
+## Building and Running
+
+1. Compile all source files:
+```bash
+g++ main.cpp -o loadbalancer
+```
+
+2. Run the executable:
+```bash
+./loadbalancer
+```
+
+## Simulation Notes
+
+The system simulates:
+- 10 web servers processing requests concurrently
+- Request processing times between 0-499 units of time
+- Random IPv4 address generation for request sources and destinations
+
+## Output
+
+The system outputs request processing information in the format:
+```
+At [timestamp] Server [ID] processed requested from: [source_ip] to [destination_ip]
+```
+
+## Architecture
+
+```
+                   ┌─────────────┐
+                   │Load Balancer│
+                   └─────┬───────┘
+                         │
+         ┌───────────────┼───────────────┐
+         │               │               │
+   ┌─────┴─────┐   ┌─────┴─────┐   ┌─────┴─────┐
+   │WebServer A │   │WebServer B │   │WebServer C  ...│
+   └───────────┘   └───────────┘   └───────────┘
+```
